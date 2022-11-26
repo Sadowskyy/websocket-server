@@ -1,10 +1,10 @@
-FROM python:3.9
+FROM node:alpine
 
-RUN pip install websockets
-RUN pip install asyncio
+WORKDIR /apps
+RUN npm install ws node-static
+ADD index.html /apps/
+ADD server.js /apps/
 
-WORKDIR /app
+EXPOSE 8080
 
-COPY . /app
-
-EXPOSE 8080/tcp
+ENTRYPOINT ["node", "server.js"]
